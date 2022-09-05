@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>小学二年级数学题--200以内四则运算</title>
+    <title>小学三年级数学题--认识时间</title>
     <style>
         * {
             margin: 0;
@@ -49,30 +49,35 @@
 
     const total = size * page;
     while (arr.length < total) {
-        // 生成的数字为2-9
-        const a = Math.floor(Math.random() * 8) + 2;
-        const b = Math.floor(Math.random() * 8) + 2;
-        const product = a * b
+        // 生成的数字为1-9
+        const a = Math.floor(Math.random() * 9) + 1;
 
-        // 生成的数字为11-99
-        const c = Math.floor(Math.random() * 89) + 11;
-        const d = Math.floor(Math.random() * 89) + 2;
-        const sum = c + d
+        // 生成的数字为1-59
+        const b = Math.floor(Math.random() * 59) + 1;
+
+        const c = a * 60 + b
+
+        let unit1 = ''
+        let unit2 = ''
+        if (Math.random() > 0.5) {
+            unit1 = '时'
+            unit2 = '分'
+        } else {
+            unit1 = '分'
+            unit2 = '秒'
+        }
 
         let expression = ''
-        const random = Math.floor(Math.random() * 4);
+        const random = Math.floor(Math.random() * 3);
         switch (random) {
             case 0:
-                expression = a + ' x ' + b + ' = ';
+                expression = '(&emsp;&emsp;)' + unit1 + b + unit2 + ' = ' + c + unit2;
                 break;
             case 1:
-                expression = product + ' ÷ ' + b + ' = ';
-                break;
-            case 2:
-                expression = c + ' + ' + d + ' = ';
+                expression = a + unit1 + '(&emsp;&emsp;)' + unit2 + ' = ' + c + unit2;
                 break;
             default:
-                expression = sum + ' - ' + c + ' = ';
+                expression = a + unit1 + b + unit2 + ' = ' + '(&emsp;&emsp;)' + unit2;
         }
         arr.push(expression);
     }
