@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>小学二年级数学题--混合运算</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            display: block;
+            width: 900px;
+            margin: 0 auto;
+            padding-left: 50px;
+        }
+
+        ul {
+            border-top: 1px solid white;
+            padding-top: 1px;
+            list-style: none;
+            clear: both;
+            page-break-after: always;
+        }
+
+        ul:nth-child(2n) {
+            padding-top: 60px;
+        }
+
+        li {
+            width: 25%;
+            float: left;
+            font-size: 18px;
+            padding-top: 20px;
+            line-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+</body>
+<script type="text/javascript">
+    const page = 10;    // 页数
+    const size = 60;    // 每页题目数
+    const arr = [];     // 题目存储数组
+
+    /*
+        生成加减乘的混合运算，并可将任意一个数字（包括运算结果）置空
+        要求:
+            a、个位数的乘法与两位数的加减法
+            b、不能为负
+        实现：
+            1、先生成个位的乘法
+            2、生成一个两位做乘数/被乘数/除数/被除数
+            3、生成的数组元素为字符串
+    */
+
+    const total = size * page;
+    while (arr.length < total) {
+        // 生成的数字为2-9
+        let a = Math.floor(Math.random() * 8) + 2;
+        const b = Math.floor(Math.random() * 8) + 2;
+        let isDivision = false // 当含除法运算时需重置a的值为a*b
+        let c = 0;
+        let expression = '';
+        let res2 = 0;
+
+        do { // 表达式值小于0要重做
+            c = Math.floor(Math.random() * 99) + 1;
+
+            let subExp = `${a} * ${b}`
+            isDivision = false
+            if (Math.random() > 0.5) {
+                isDivision = true
+                subExp = `${a * b} / ${b}`
+            }
+
+            // if (a > 100) {
+            //     console.log('err', a, b, c)
+            // }
+
+            const operate = Math.random() > 0.5 ? '+' : '-';
+            if (Math.random() > 0.5) {
+                // 数字两边要留有空格，方便后续替换为空括号
+                expression = ` ${subExp} ${operate} ${c} `;
+            } else {
+                expression = ` ${c} ${operate} ${subExp} `;
+            }
+            res2 = eval(expression);
+        } while (res2 <= 0);
+
+        // 随机挖空表达式中的数字
+        a = isDivision ? a * b : a
+        const random = Math.floor(Math.random() * 4);
+        switch (random) {
+            case 0:
+                expression = expression.replace(' ' + a + ' ', ' (&emsp;&emsp;) ');
+                break;
+            case 1:
+                expression = expression.replace(' ' + b + ' ', ' (&emsp;&emsp;) ');
+                break;
+            case 2:
+                expression = expression.replace(' ' + c + ' ', ' (&emsp;&emsp;) ');
+                break;
+            case 3:
+                res2 = '';
+            default:
+                res2 = '';
+        }
+        expression = expression.replace('*', '×').replace('/', '÷');
+        arr.push(expression + ' = ' + res2);
+        // console.log('sss', arr.length, random, expression + ' = ' + res2);
+    }
+
+    let htmlStr = '';
+    for (var i = 0; i < page; i++) {
+        htmlStr += '<ul>' + arr.slice(i * size, i * size + size)
+            .map((item, i) => '<li>' + item + '</li>')
+            .join('') + '</ul>';
+    }
+    document.querySelector('#app').innerHTML = htmlStr;
+</script>

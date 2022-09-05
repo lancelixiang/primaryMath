@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>小学二年级数学题--加减乘除</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            display: block;
+            width: 900px;
+            margin: 0 auto;
+            padding-left: 50px;
+        }
+
+        ul {
+            border-top: 1px solid white;
+            padding-top: 1px;
+            list-style: none;
+            clear: both;
+            page-break-after: always;
+        }
+
+        ul:nth-child(2n) {
+            padding-top: 60px;
+        }
+
+        li {
+            width: 25%;
+            float: left;
+            font-size: 18px;
+            padding-top: 20px;
+            line-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+</body>
+<script type="text/javascript">
+    const page = 20;    // 页数
+    const size = 60;    // 每页题目数
+    const arr = [];     // 题目存储数组
+
+    const total = size * page;
+    while (arr.length < total) {
+        // 生成的数字为2-9
+        const a = Math.floor(Math.random() * 8) + 2;
+        const b = Math.floor(Math.random() * 8) + 2;
+        const product = a * b
+
+        // 生成的数字为11-99
+        const c = Math.floor(Math.random() * 89) + 11;
+        const d = Math.floor(Math.random() * 89) + 2;
+        const sum = c + d
+
+        let expression = ''
+        const random = Math.floor(Math.random() * 4);
+        switch (random) {
+            case 0:
+                expression = a + ' x ' + b + ' = ';
+                break;
+            case 1:
+                expression = product + ' ÷ ' + b + ' = ';
+                break;
+            case 2:
+                expression = c + ' + ' + d + ' = ';
+                break;
+            default:
+                expression = sum + ' - ' + c + ' = ';
+        }
+        arr.push(expression);
+    }
+
+    let htmlStr = '';
+    for (var i = 0; i < page; i++) {
+        htmlStr += '<ul>' + arr.slice(i * size, i * size + size)
+            .map((item, i) => '<li>' + item + '</li>')
+            .join('') + '</ul>';
+    }
+    document.querySelector('#app').innerHTML = htmlStr;
+</script>

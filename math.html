@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>小学一年级数学题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            display: block;
+            width: 900px;
+            margin: 0 auto;
+            padding-left: 50px;
+        }
+
+        ul {
+            list-style: none;
+            clear: both;
+            page-break-after: always;
+        }
+        ul:nth-child(2n+1) {
+            padding-top: 50px;
+        }
+
+        li {
+            width: 25%;
+            float: left;
+            font-size: 18px;
+            padding-top: 20px;
+            line-height: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+</body>
+<script type="text/javascript">
+    const page = 30;
+    const size = 60;
+    const arr = [];
+
+    while (arr.length < 100 * page) {
+        const item = [];
+        item[0] = Math.floor(Math.random() * 99) + 1;
+        item[1] = Math.random() > 0.5 ? '+' : '-';
+        item[2] = Math.floor(Math.random() * 99) + 1;
+        item[3] = Math.random() > 0.5 ? '+' : '-';
+        item[4] = Math.floor(Math.random() * 99) + 1;
+
+        let res1 = 0;
+        if (Math.random() > 0.5) {
+            res1 = eval(item.slice(0, 3).join(''));
+        } else {
+            item[2] = '(' + item[2];
+            item[4] += ")";
+            res1 = eval(item.slice(2).join(''));
+        }
+        const res2 = eval(item.join(''));
+        if (res1 > 0 && res2 > 0) {
+            arr.push(item);
+        }
+    }
+
+    let htmlStr = '';
+    for (var i = 0; i < page; i++) {
+        htmlStr += '<ul>' + arr.slice(i * size, i * size + size)
+            .map((item, i) => '<li>' + item.join(' ') + ' =</li>')
+            .join('') + '</ul>';
+    }
+    document.querySelector('#app').innerHTML = htmlStr;
+</script>

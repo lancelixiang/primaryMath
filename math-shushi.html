@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>小学二年级数学题--竖式练习</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            display: block;
+            width: 900px;
+            margin: 0 auto;
+        }
+
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        ul {
+            list-style: none;
+            clear: both;
+            page-break-after: always;
+        }
+        ul:nth-child(2n+1) {
+            padding-top: 50px;
+        }
+
+        li {
+            float: left;
+            width: 15%;
+            padding: 20px 5%;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        li span {
+            display: inline-block;
+            width: 90%;
+            text-align: right;
+            letter-spacing: 15px;
+        }
+
+        li span:nth-child(2),
+        li span:nth-child(4) {
+            width: 30%;
+            border-bottom: 1px solid #000;
+            margin-bottom: 30px;
+        }
+
+        li span:nth-child(3),
+        li span:nth-child(5) {
+            width: 60%;
+            border-bottom: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+</body>
+<script type="text/javascript">
+    const page = 10; // 多少页
+    const size = 28; // 每页多少题
+    const arr = [];
+
+    while (arr.length < 100 * page) {
+        const item = [];
+        item[0] = Math.floor(Math.random() * 899) + 100;
+        item[1] = Math.random() > 0.5 ? '+' : '-';
+        item[2] = Math.floor(Math.random() * 899) + 100;
+        item[3] = Math.random() > 0.5 ? '+' : '-';
+        item[4] = Math.floor(Math.random() * 899) + 100;
+
+        const res1 = eval(item.slice(0, 3).join(''));
+        const res2 = eval(item.join(''));
+        if (res1 > -100 && res2 > -100) {
+            arr.push(item);
+        }
+    }
+
+    let htmlStr = '';
+    for (var i = 0; i < page; i++) {
+        htmlStr += '<ul class="clearfix">' + arr.slice(i * size, i * size + size)
+            .map((item, i) => '<li><span>' + item.join('</span><span>') + '</span></li>')
+            .join('') + '</ul>';
+    }
+    document.querySelector('#app').innerHTML = htmlStr;
+</script>
