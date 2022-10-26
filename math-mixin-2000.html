@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>小学二年级数学题--200以内四则混合运算</title>
+    <title>小学二年级数学题--2000以内四则混合运算</title>
     <style>
         * {
             margin: 0;
@@ -50,11 +50,11 @@
     /*
         生成加减乘的混合运算，并可将任意一个数字（包括运算结果）置空
         要求:
-            a、个位数的乘法与两位数的加减法
+            a、个位数的乘法与三位数的加减法
             b、不能为负
         实现：
             1、先生成个位的乘法,存入a和b
-            2、再生成一个两位数c
+            2、再生成一个三位数c
             3、拼接数组元素为字符串
     */
 
@@ -69,7 +69,7 @@
         let res2 = 0;
 
         do { // 表达式值小于0要重做
-            c = Math.floor(Math.random() * 99) + 1;
+            c = Math.floor(Math.random() * 899) + 100;
 
             let subExp = `${a} * ${b}`
             isDivision = false
